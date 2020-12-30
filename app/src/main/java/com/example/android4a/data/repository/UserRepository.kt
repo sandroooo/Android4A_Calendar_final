@@ -18,4 +18,6 @@ class UserRepository(
         val userLocal = databaseDao.findByName(email)
         return userLocal?.toEntity()
     }
+
+
 }

@@ -2,7 +2,6 @@ package com.example.android4a.presentation.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.viewModelScope
 import com.example.android4a.domain.entity.User
 import com.example.android4a.domain.usecase.CreateUserUseCase
@@ -17,9 +16,12 @@ class MainViewModel (
 
     val loginLiveData: MutableLiveData<LoginStatus> = MutableLiveData()
 
-    fun onClickedLogin(emailUser : String , password:String){
+    fun onClickedLogin(emailUser : String ){
+        //createUserUseCase.invoke(User("test"))
         viewModelScope.launch(Dispatchers.IO) {
-            val user = getUserUseCase.invoke(emailUser)
+            createUserUseCase.invoke(User("test@gmail.com"))
+           val user = getUserUseCase.invoke(emailUser)
+           //val user2 = getUserUseCase.invoke("test@gmail.com ","azerty")
            val loginStatus =  if(user !=null){
                 LoginSuccess(user.email)
             }else{
@@ -32,4 +34,16 @@ class MainViewModel (
 
         }
     }
+
+    fun onCreate(emailUser : String ){
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+
+            val user = createUserUseCase.invoke(User(emailUser))
+
+
+        }
+    }
+
 }
